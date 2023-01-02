@@ -1,0 +1,66 @@
+AIRBNB CLON PROJECT DISCUSSION
+
+SOFTWARE DEVELOPMENT LIFECYCLE(SDLC)
+	1. Planning
+	2. Analysis | Requirement Analysis (specification requirements[SSR])
+	3. Design (design documents requirement[DDR])
+		- Wireframing
+		- Prototyping
+	4. Implementation stage - building software
+	5. Testing | Integration
+	6. Deployment | Maintanance
+
+WEB APP -> FrontEnd -> Console (cmd Module)
+        -> BackEnd -> OOP concepts
+        -> DataBase(File Storage) -> [json module]
+        -> Testing -> Unittest module
+        
+    
+Analysis of AirBnB
+
+ - UserAcount -> Fields: name,email, unique_id, created_date, updated_date
+ 
+ - Reviews -> unique_id
+ 
+ - Place -> unique_id,update_dated, cretated_date6
+ 
+ - Amenity -> classes(attributes and methods)
+ 	CRUD
+ 	C => Create
+ 	R => Read
+ 	U => Update
+ 	D => Delete
+ 	
+ class BaseModel():
+ 	#Define Attributes that are common
+ 	#Define medthodes that are common
+ 	
+ class User(BaseModel):
+ 	#inherits all the base class attributes
+ 	#all the base class methods
+ 	#declare all the unique attributes 
+ 	#declare a unique methods of the class
+ 	
+ 
+ class Amenity(BaseModel):
+ 	#attributes
+ 
+ Everything in Python is an object
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+  
