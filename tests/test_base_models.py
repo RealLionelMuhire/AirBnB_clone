@@ -10,6 +10,7 @@ class TestBase(unittest.TestCase):
         mod1 = BaseModel()
         mod2 = BaseModel()
         self.assertNotEqual(mod1.id, mod2.id)
+        self.assertIsInstance(mod1.id, str)
 
     def test_created_at(self):
         model = BaseModel()
@@ -25,6 +26,14 @@ class TestBase(unittest.TestCase):
         model.save()
         self.assertNotEqual(upd_at, model.updated_at)
 
+    def test_dict_dic(self):
+        model = BaseModel()
+        ob_dict = model.to_dict()
+        self.assertIsInstance(ob_dict, dict)
+        self.assertIn('__class__', ob_dict)
+        self.assertEqual(ob_dict['__class__'], 'BaseModel')
+        self.assertIn('created_at', ob_dict)
+        self.assertIn('updated_at', ob_dict)
 
 
 if __name__ == "__main__":

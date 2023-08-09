@@ -28,5 +28,6 @@ class BaseModel:
         return obj_dict
 
     def __str__(self):
-        """this str prints in human freindry format"""
+        """this str print class Tnts in human freindry format"""
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
+
