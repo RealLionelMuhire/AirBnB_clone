@@ -16,7 +16,7 @@ class BaseModel:
 
     def save(self):
         """Helps to update update_at"""
-        self.updated_at = datetime.datetime.now()
+        self.updated_at = datetime.now()
         return self
     
     def to_dict(self):
