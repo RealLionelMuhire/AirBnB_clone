@@ -4,6 +4,7 @@ this is the base model that contains serial/deserial info
 """
 from datetime import datetime
 import uuid
+import models
 
 
 class BaseModel:
@@ -24,11 +25,12 @@ class BaseModel:
             self.id = str(uuid.uuid4())
             self.created_at = datetime.utcnow()
             self.updated_at = datetime.utcnow()
+            models.storage.new(self)
 
     def save(self):
         """Helps to update update_at"""
-        self.updated_at = datetime.now()
-        return self
+        self.updated_at = datetime.utcnow()
+        models.storage.save()
 
     def to_dict(self):
         """Generate a new dict with an extra field __class__"""
@@ -41,3 +43,4 @@ class BaseModel:
     def __str__(self):
         """this str prints in human freindry format"""
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
+
