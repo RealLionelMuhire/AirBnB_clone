@@ -5,6 +5,7 @@ import unittest
 from models import user
 from models.user import User
 from models.base_model import BaseModel
+import pep8
 
 
 class TestUserClass(unittest.TestCase):
@@ -25,6 +26,15 @@ class TestUserClass(unittest.TestCase):
     def test_class_doc(self):
         """ check for documentation """
         self.assertTrue(len(User.__doc__) > 0)
+    
+    def test_pep8(self):
+        """ test base and test_base for pep8 conformance """
+        style = pep8.StyleGuide(quiet=True)
+        file1 = 'models/state.py'
+        file2 = 'tests/test_models/test_state.py'
+        result = style.check_files([file1, file2])
+        self.assertEqual(result.total_errors, 0,
+                         "Found code style errors (and warning).")
 
     def test_method_docs(self):
         """ check for method documentation """
