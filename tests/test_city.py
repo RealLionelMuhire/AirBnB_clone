@@ -5,6 +5,7 @@ import unittest
 from models import city
 from models.city import City
 from models.base_model import BaseModel
+import pep8
 
 
 class TestCityClass(unittest.TestCase):
@@ -39,6 +40,15 @@ class TestCityClass(unittest.TestCase):
         my_city = City()
         self.assertTrue(type(my_city.name) == str)
         self.assertTrue(type(my_city.state_id) == str)
+
+    def test_pep8(self):
+        """ test base and test_base for pep8 conformance """
+        style = pep8.StyleGuide(quiet=True)
+        file1 = 'models/state.py'
+        file2 = 'tests/test_models/test_state.py'
+        result = style.check_files([file1, file2])
+        self.assertEqual(result.total_errors, 0,
+                         "Found code style errors (and warning).")
 
 
 if __name__ == '__main__':

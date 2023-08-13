@@ -4,6 +4,7 @@
 import unittest
 from models import state
 from models.state import State
+import pep8
 from models.base_model import BaseModel
 
 
@@ -42,6 +43,15 @@ class TestStateClass(unittest.TestCase):
         """ Test field attributes of user """
         my_state = State()
         self.assertTrue(type(my_state.name) == str)
+
+    def test_pep8(self):
+        """ test base and test_base for pep8 conformance """
+        style = pep8.StyleGuide(quiet=True)
+        file1 = 'models/state.py'
+        file2 = 'tests/test_models/test_state.py'
+        result = style.check_files([file1, file2])
+        self.assertEqual(result.total_errors, 0,
+                         "Found code style errors (and warning).")
 
 
 if __name__ == '__main__':
