@@ -8,7 +8,7 @@ import models
 
 
 class BaseModel:
-    
+
     def __init__(self, *args, **kwargs):
         """defining all common attributes"""
         if kwargs:
@@ -43,4 +43,3 @@ class BaseModel:
     def __str__(self):
         """this str print class Tnts in human freindry format"""
         return f"[{self.__class__.__name__}] ({self.id}) {self.__dict__}"
-
