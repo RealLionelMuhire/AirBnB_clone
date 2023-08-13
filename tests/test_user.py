@@ -26,7 +26,7 @@ class TestUserClass(unittest.TestCase):
     def test_class_doc(self):
         """ check for documentation """
         self.assertTrue(len(User.__doc__) > 0)
-    
+
     def test_pep8(self):
         """ test base and test_base for pep8 conformance """
         style = pep8.StyleGuide(quiet=True)

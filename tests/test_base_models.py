@@ -45,7 +45,7 @@ class TestBase(unittest.TestCase):
         """testing created at"""
         model = BaseModel()
         self.assertIsInstance(model.created_at, datetime)
-    
+
     def test_updated_at(self):
         """testing Update"""
         model = BaseModel()

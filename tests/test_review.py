@@ -10,7 +10,6 @@ from models.base_model import BaseModel
 class TestReviewClass(unittest.TestCase):
     """TestReviewClass test suite for the use
     of the review class
-    
     Args:
         unittest (): Propertys for unit testing
     """
