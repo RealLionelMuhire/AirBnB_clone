@@ -1,8 +1,9 @@
 #!/usr/bin/python3
-"""this is the console"""
+"""This is the console"""
 import cmd
 from models import storage
 from models.base_model import BaseModel
+from models.user import User
 import shlex
 
 
@@ -30,10 +31,10 @@ class HBNBCommand(cmd.Cmd):
         and prints the id"""
         if not args:
             print("** class name missing **")
-        elif args != "BaseModel":
+        elif args != "BaseModel" and args != "User":
             print("** class doesn't exist **")
         else:
-            new_obj = BaseModel()
+            new_obj = BaseModel() if args == "BaseModel" else User()
             new_obj.save()
             print(new_obj.id)
 
@@ -44,13 +45,13 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             args_list = shlex.split(args)
-            if args_list[0] != "BaseModel":
+            if args_list[0] != "BaseModel" and args_list[0] != "User":
                 print("** class doesn't exist **")
             elif len(args_list) < 2:
                 print("** instance id missing **")
             else:
                 obj_id = args_list[1]
-                obj_key = "{}.{}".format("BaseModel", obj_id)
+                obj_key = "{}.{}".format(args_list[0], obj_id)
                 all_objs = storage.all()
                 if obj_key in all_objs:
                     obj = all_objs[obj_key]
@@ -64,13 +65,13 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             args_list = shlex.split(args)
-            if args_list[0] != "BaseModel":
+            if args_list[0] != "BaseModel" and args_list[0] != "User":
                 print("** class doesn't exist **")
             elif len(args_list) < 2:
                 print("** instance id missing **")
             else:
                 obj_id = args_list[1]
-                obj_key = "{}.{}".format("BaseModel", obj_id)
+                obj_key = "{}.{}".format(args_list[0], obj_id)
                 all_objs = storage.all()
                 if obj_key in all_objs:
                     del all_objs[obj_key]
@@ -80,7 +81,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """Prints all string representation of all instances"""
-        if arg not in ["BaseModel"] and arg:
+        if arg not in ["BaseModel", "User"] and arg:
             print("** class doesn't exist **")
         else:
             all_objs = storage.all()
@@ -93,13 +94,13 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             args_list = shlex.split(args)
-            if args_list[0] != "BaseModel":
+            if args_list[0] != "BaseModel" and args_list[0] != "User":
                 print("** class doesn't exist **")
             elif len(args_list) < 2:
                 print("** instance id missing **")
             else:
                 obj_id = args_list[1]
-                obj_key = "{}.{}".format("BaseModel", obj_id)
+                obj_key = "{}.{}".format(args_list[0], obj_id)
                 all_objs = storage.all()
                 if obj_key in all_objs:
                     obj = all_objs[obj_key]
@@ -110,7 +111,10 @@ class HBNBCommand(cmd.Cmd):
                     else:
                         attr_name = args_list[2]
                         attr_value = args_list[3]
-                        setattr(obj, attr_name, attr_value)
+                        if hasattr(obj, attr_name):
+                            attr_type = type(getattr(obj, attr_name))
+                            setattr(obj, attr_name, attr_type(attr_value))
+                            obj.save()
                 else:
                     print("** no instance found **")
 
