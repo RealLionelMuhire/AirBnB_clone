@@ -11,20 +11,20 @@ class HBNBCommand(cmd.Cmd):
     class HBNBCommand
     """
     prompt = "(hbnb) "
-    
+
     def do_EOF(self, arg):
         """EOF command to exit the program"""
         print()
         return True
-    
+
     def do_quit(self, arg):
         """Quit command to exit the program"""
         return True
-    
+
     def emptyline(self):
         """Called when an empty line + ENTER is input"""
         pass
-    
+
     def do_create(self, args):
         """Creates a new instance of BaseModel, saves it (to the JSON file)
         and prints the id"""
@@ -55,6 +55,62 @@ class HBNBCommand(cmd.Cmd):
                 if obj_key in all_objs:
                     obj = all_objs[obj_key]
                     print(obj)
+                else:
+                    print("** no instance found **")
+
+    def do_destroy(self, args):
+        """Deletes an instance based on the class name and id"""
+        if not args:
+            print("** class name missing **")
+        else:
+            args_list = shlex.split(args)
+            if args_list[0] != "BaseModel":
+                print("** class doesn't exist **")
+            elif len(args_list) < 2:
+                print("** instance id missing **")
+            else:
+                obj_id = args_list[1]
+                obj_key = "{}.{}".format("BaseModel", obj_id)
+                all_objs = storage.all()
+                if obj_key in all_objs:
+                    del all_objs[obj_key]
+                    storage.save()
+                else:
+                    print("** no instance found **")
+
+    def do_all(self, arg):
+        """Prints all string representation of all instances"""
+        if arg not in ["BaseModel"] and arg:
+            print("** class doesn't exist **")
+        else:
+            all_objs = storage.all()
+            print([str(obj) for obj in all_objs.values()])
+
+    def do_update(self, args):
+        """Updates an instance based on the class name and id by adding or
+        updating attribute"""
+        if not args:
+            print("** class name missing **")
+        else:
+            args_list = shlex.split(args)
+            if args_list[0] != "BaseModel":
+                print("** class doesn't exist **")
+            elif len(args_list) < 2:
+                print("** instance id missing **")
+            else:
+                obj_id = args_list[1]
+                obj_key = "{}.{}".format("BaseModel", obj_id)
+                all_objs = storage.all()
+                if obj_key in all_objs:
+                    obj = all_objs[obj_key]
+                    if len(args_list) < 3:
+                        print("** attribute name missing **")
+                    elif len(args_list) < 4:
+                        print("** value missing **")
+                    else:
+                        attr_name = args_list[2]
+                        attr_value = args_list[3]
+                        setattr(obj, attr_name, attr_value)
                 else:
                     print("** no instance found **")
 
