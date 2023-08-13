@@ -4,6 +4,11 @@ import cmd
 from models import storage
 from models.base_model import BaseModel
 from models.user import User
+from models.state import State
+from models.city import City
+from models.amenity import Amenity
+from models.place import Place
+from models.review import Review
 import shlex
 
 
@@ -12,7 +17,10 @@ class HBNBCommand(cmd.Cmd):
     class HBNBCommand
     """
     prompt = "(hbnb) "
-    supported_classes = ["BaseModel", "User"]
+    supported_classes = [
+        "BaseModel", "User", "State",
+        "City", "Amenity", "Place", "Review"
+    ]
 
     def do_EOF(self, arg):
         """EOF command to exit the program"""
@@ -32,10 +40,10 @@ class HBNBCommand(cmd.Cmd):
         and prints the id"""
         if not args:
             print("** class name missing **")
-        elif args != "BaseModel" and args != "User":
+        elif args not in self.supported_classes:
             print("** class doesn't exist **")
         else:
-            new_obj = BaseModel() if args == "BaseModel" else User()
+            new_obj = eval(args)()
             new_obj.save()
             print(new_obj.id)
 
