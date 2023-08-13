@@ -12,6 +12,7 @@ class HBNBCommand(cmd.Cmd):
     class HBNBCommand
     """
     prompt = "(hbnb) "
+    supported_classes = ["BaseModel", "User"]
 
     def do_EOF(self, arg):
         """EOF command to exit the program"""
@@ -45,7 +46,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             args_list = shlex.split(args)
-            if args_list[0] != "BaseModel" and args_list[0] != "User":
+            if args_list[0] not in self.supported_classes:
                 print("** class doesn't exist **")
             elif len(args_list) < 2:
                 print("** instance id missing **")
@@ -65,7 +66,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             args_list = shlex.split(args)
-            if args_list[0] != "BaseModel" and args_list[0] != "User":
+            if args_list[0] not in self.supported_classes:
                 print("** class doesn't exist **")
             elif len(args_list) < 2:
                 print("** instance id missing **")
@@ -81,7 +82,7 @@ class HBNBCommand(cmd.Cmd):
 
     def do_all(self, arg):
         """Prints all string representation of all instances"""
-        if arg not in ["BaseModel", "User"] and arg:
+        if arg not in self.supported_classes and arg:
             print("** class doesn't exist **")
         else:
             all_objs = storage.all()
@@ -94,7 +95,7 @@ class HBNBCommand(cmd.Cmd):
             print("** class name missing **")
         else:
             args_list = shlex.split(args)
-            if args_list[0] != "BaseModel" and args_list[0] != "User":
+            if args_list[0] not in self.supported_classes:
                 print("** class doesn't exist **")
             elif len(args_list) < 2:
                 print("** instance id missing **")
